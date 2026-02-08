@@ -1,11 +1,11 @@
-FROM python:3.13.7-alpine AS builder
+FROM python:3.13.7-alpine3.22 AS builder
 
 RUN apk add --no-cache gcc musl-dev linux-headers
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --prefix=/install --no-cache-dir --require-hashes -r requirements.txt
 
-FROM python:3.13.7-alpine
+FROM python:3.13.7-alpine3.22
 
 WORKDIR /app
 COPY --from=builder /install /usr/local
